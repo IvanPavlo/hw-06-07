@@ -95,6 +95,7 @@ img {
   line-height: 1.19;
   text-decoration: none;
 }
+
 .logo-studio {
   color: var(--primary-text-color);
   font-family: raleway, sans-serif;
@@ -345,6 +346,11 @@ margin-right: 10px;
   background-color: var(--header-background-color);
   border-radius: 50%;
   cursor: pointer;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-close-btn:hover .icon-x {
+  fill: var(--accent-color);
 }
 
 /* Оформление модального окна */
@@ -360,6 +366,7 @@ margin-right: 10px;
 }
 
 .modal-form-label {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -367,47 +374,116 @@ margin-right: 10px;
   font-size: 12px;
   line-height: 1.17;
   font-weight: 400;
+  min-height: 40px;
   margin-bottom: 4px;
   margin-top: 10px;
 }
 .input-item{
- padding-bottom: 4px;
+font-size: 12px;
+padding-bottom: 4px;
+color: var(--secondary-text-color);
 }
+
+.modal-input-icon{
+  position: absolute;
+  top: 29px;
+  left: 12px;
+}
+
 .modal-form-input {
   align-items: flex-start;
   border: 1px solid rgba(33, 33, 33, 0.2);
   border-radius: 4px;
-  padding: 10px;
+  padding: 12px;
+  padding-left: 42px;
   width: 100%;
+  outline: transparent;
+  cursor: pointer;
 }
 
-textarea {
+.modal-form-input:focus{
+ border-color: var(--accent-color); 
+}
+
+
+.modal-form-comment{
   resize: none;
   width: 448px;
   height: 120px;
   padding: 12px 16px;
   margin-bottom: 20px;
+  border: 1px solid rgba(33, 33, 33, 0.2);
+  border-radius: 4px;
+  outline: transparent;
 }
+.modal-form-comment:focus{
+  border-color: var(--accent-color); 
+ }
 
-textarea::placeholder {
+ .modal-form-input:focus + .modal-input-icon{
+fill: var(--accent-color); 
+ }
+
+.modal-form-comment::placeholder {
   color: var(--secondary-text-color);
   letter-spacing: 0.01em;
+  font-size: 14px;
 }
 
-.modal-form-confirm {
+.modal-form-confirm{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.modal-form-data input[type="checkbox"] {
-  width: 16px;
-  height: 15px;
-  color: #212121;
-  margin-right: 8px;
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
 }
 
-.modal-form-link {
-  color: var(--accent-color);
+              /* Custom check box */
+
+.custom-checkbox{
+display: flex;
+align-items: center;
+justify-content: center;
+width: 16px;
+height: 15px;
+border: 2px solid #212121;
+border-radius: 2px;
+margin-right: 7px;
+}
+
+.custom-checkbox-icon{
+ fill: var(--header-background-color);
+ flex-shrink: 0;
+ border-radius: 2px;
+}
+
+.custom-checkbox:checked .custom-checkbox{
+  background-color: var(--accent-color);
+}
+
+.visually-hidden:checked + .custom-checkbox > .custom-checkbox-icon{
+background-color: var(--accent-color);
+border-color: transparent;
+}
+
+.modal-checkbox-text{
+color: var(--secondary-text-color);
+}
+
+.modal-checkbox-link {
+  color: var(--accent-color); 
+  text-decoration: underline;
 }
 
 .modal-form-btn {
@@ -423,6 +499,11 @@ textarea::placeholder {
   cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  transition: background-color 250ms cubic-bezier (0.4, 0, 0.2, 1);
+}
+
+.modal-form-btn:hover{
+background-color: #188CE8;
 }
 
 /* цвет  заголовка и текста секций Benefits*/
@@ -594,6 +675,7 @@ border-radius: 4px;
   border-radius: 50%;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
     fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: transparent;
 }
 
 .social-item {
@@ -645,6 +727,7 @@ border-radius: 4px;
 
 .client-link:not(:last-child) {
   margin-right: 30px;
+ 
 }
 
 .clients-item {
@@ -657,6 +740,7 @@ border-radius: 4px;
   justify-content: center;
   align-items: center;
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  outline: transparent;
 }
 
 .client-icon {
@@ -846,6 +930,7 @@ background-color:var(--accent-color);
 }
 .filter-button {
   border-radius: 4px;
+  outline: transparent;
 }
 
 .filter-button {
@@ -875,9 +960,10 @@ button {
   background-color: inherit;
   border: inherit;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-.filter-button:hover {
+.filter-button:hover, .filter-button:focus {
   color: var(--header-background-color);
   background-color: var(--accent-color);
   box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
@@ -891,13 +977,13 @@ button:focus .filter-button {
     0px 2px 2px rgba(0, 0, 0, 0.12);
 }
 
-.filter-button:hover button {
+.filter-button:focus button {
   color: var(--header-background-color);
 }
 
-/* .filter-button:focus button{
-color: var(--header-background-color);
-} */
+.filter-button:hover button {
+  color: var(--header-background-color);
+}
 
 .portfolio-title {
   font-weight: 700;
